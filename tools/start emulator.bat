@@ -1,0 +1,1 @@
+start D:\ProgramFiles\Android\sdk\tools\emulator.exe -netdelay none -netspeed full -avd Nexus_S_API_23
