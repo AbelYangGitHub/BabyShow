@@ -126,6 +126,15 @@ Saved 95 new dependencies.
 
 
 # NativeBase官方文档笔记
+
+==NativeBase应该是封装了React-Native中的一些组件，并在说明中用｀Replacing Component｀的形式进行说明。｀Replacing Component｀说明了当前组件会被替换成React-Native的某个组件。也可以通过这个来学习NativeBase在制作自定义组件的时候都使用那些组件，为自己开发组件的时候提供借鉴。==
+
+==NativeBase应该是封装了React-Native中的一些组件，并在说明中用｀Replacing Component｀的形式进行说明。｀Replacing Component｀说明了当前组件会被替换成React-Native的某个组件。也可以通过这个来学习NativeBase在制作自定义组件的时候都使用那些组件，为自己开发组件的时候提供借鉴。==
+
+
+
+
+
 ## 组件
 
 ### Anatomy
@@ -133,7 +142,128 @@ ReactBase提供了一个自己的结构组件，叫做Container
 
 Anatomy，结构，包括<Header>,<Content>,<Footer>，他们在使用的时候需要被<Container>组件包裹，这样NativeBase就可以自动安排结构组件的位置了。
 
+#### Footer  (Component)
+* Replacing Component: React Native `View`.
+#### Content  (Component)
+* Replacing Component: React Native Keyboard Aware Scroll View's `KeyboardAwareScrollView`
 
+
+
+
+
+## ActionSheet  (API)
+
+* NativeBase ActionSheet is a wrapper around the React Native `ActionSheetIOS` component.
+* 使用ActionSheet的时候需要把整个app最顶端的组件使用NativeBase的<Root>组件包裹起来。比如：
+
+```
+import { Root } from "native-base";
+import { StackNavigator } from "react-navigation";
+const AppNavigator = StackNavigator(
+  {
+    Page: { screen: Page },
+  }
+);
+export default () =>
+  <Root>
+    <AppNavigator />
+  </Root>;
+```
+
+* ActionSheet的使用举例：
+```
+ActionSheet.show(
+    {
+    options: BUTTONS,
+    cancelButtonIndex: CANCEL_INDEX,
+    destructiveButtonIndex: DESTRUCTIVE_INDEX,
+    title: "Testing ActionSheet"
+    },
+    buttonIndex => {
+    this.setState({ clicked: BUTTONS[buttonIndex] });
+    }
+)}
+```
+
+
+
+
+
+
+## Badge  (Component)
+
+* Replacing Component: React Native `View`
+
+
+
+
+
+## Button  (Component)
+
+Button组件是一个NativeBase自定义的组件。
+
+* Replacing Component:
+  * React Native `TouchableOpacity` for iOS
+  * React Native `TouchableNativeFeedback` for Android
+
+
+
+
+## Card  (Component)
+
+* Card组件是一个NativeBase自定义的组件。
+* Replacing Component
+  * React Native `View` for Card
+  * React Native `TouchableOpacity` / `View` for CardItem
+
+
+
+
+
+## CheckBox  (Components)
+
+* Replacing Component: React Native `TouchableOpacity`
+
+
+
+
+## Deck Swiper  (Components)
+
+* Replacing Component: React Native `View`
+
+
+
+
+## Fab(Floating Action Buttons)  (Components)
+
+* Replacing Component: React Native `Animated`
+
+
+
+
+
+## Footer Tabs
+
+* Replacing Component: React Native `View`
+
+
+
+
+
+## Form
+* Replacing Component:`
+  * Form: React Native `View`
+  * Item: React Native `TouchableOpacity`
+  * Input: React Native `TextInput`
+  * Label: React Native `Text`
+
+
+
+
+
+## Header
+
+* 
 
 
 
