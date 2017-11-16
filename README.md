@@ -3,12 +3,15 @@
 使用React Native做的一个宝宝秀项目
 
 ## 开发环境
+
 * Homebrew: 11.3.6
 * node: 8.9.1
 * yarn: 1.3.2
 * react@16.0.0
 * javac 1.8.0_152
 * https://services.gradle.org/distributions/gradle-2.14.1-all.zip
+
+## 依赖项
 ```
 Saved 95 new dependencies.
 ├─ abab@1.0.4
@@ -108,8 +111,40 @@ Saved 95 new dependencies.
 └─ xml-name-validator@2.0.1
 ```
 
-## 创建完项目后：
-｀ios｀: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-｀android｀: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+## 使用的组件／组件库
+* 组建库：NativeBase
+* 
+
+
+
+
+
+
+
+
+
+
+
+# NativeBase官方文档笔记
+## 组件
+
+### Anatomy
+ReactBase提供了一个自己的结构组件，叫做Container
+
+Anatomy，结构，包括<Header>,<Content>,<Footer>，他们在使用的时候需要被<Container>组件包裹，这样NativeBase就可以自动安排结构组件的位置了。
+
+
+
+
+
+
+
+
+
+
+# 开发实战
+
+## 1. 安装完NativeBase后执行`react-native run-ios`，提示`Unrecognized font family ionicons`
+1. Run `react-native link react-native-vector-icons`
+2. Then run `react-native start --reset-cache`
+3. Finally run `react-native run-ios` to restart the simulator
