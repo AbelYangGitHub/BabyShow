@@ -147,7 +147,7 @@ Anatomy，结构，包括<Header>,<Content>,<Footer>，他们在使用的时候�
 #### Content  (Component)
 * Replacing Component: React Native Keyboard Aware Scroll View's `KeyboardAwareScrollView`
 
-
+> 页面布局使用Header、Content、Footer；Header中的左中右布局使用Left、Body、Right
 
 
 
@@ -250,7 +250,7 @@ Button组件是一个NativeBase自定义的组件。
 
 
 
-## Form
+## Form (Componnet)
 * Replacing Component:`
   * Form: React Native `View`
   * Item: React Native `TouchableOpacity`
@@ -261,10 +261,170 @@ Button组件是一个NativeBase自定义的组件。
 
 
 
-## Header
+## Header (Componnet)
 
-* 
+* Replacing Component: React Native `View`
 
+
+
+
+
+
+## Icon (Componnet)
+
+* Uses Ionicons from React Native Vector Icons
+
+
+
+
+
+## Layout  --  Grid,Col,Row  (Componnet)
+* <Grid>,<Col>,<Row>是为了更简单地使用Flexbox而创建的组件，其是对Flexbox的封装
+* Replacing Component for Grid, Col, Row: React Native `View`
+
+> NOTE: `<Content>` component uses `<ScrollView>`. This is required by `<Col>` and `<Row>` elements of Easy-Grid to have a defined height.
+
+
+
+
+
+## List
+* 这个组件由NativeBase自定义。
+* Replacing Component:
+  * List: React Native `View`
+  * ListItem:
+    * React Native TouchableOpacity for `iOS`
+    * React Native TouchableNativeFeedback for `Android`
+
+* Dynamic List: For more advanced implementation of rendering list dynamically, take a look at [nativebase-tutorial](https://github.com/GeekyAnts/nativebase-tutorial).
+
+* <Separator>组件，这是用在List组件中用来分割ListItem用的，但也可以单独使用。
+
+
+
+
+
+## Picker
+* 用来实现类似下拉列表的选择功能，注意，iOS和Android下的选择方式不一样。
+* Replacing Component: React Native `Picker`
+
+
+
+
+
+## Radio Button
+
+* Replacing Component: React Native `TouchableOpacity`
+
+
+
+
+
+## Search Bar
+ * Replacing Component: React Native `View`
+
+> 如果SearchBar用在了Header中，需要给Header增加`searchBar`属性
+
+
+
+
+
+## Segment
+
+> 如果Segment组件用在了Header中，需要给Header增加`segment`属性
+
+
+
+
+
+
+## Spinner
+
+* Replacing Component: React Native `ActivityIndicator`
+
+
+
+
+
+## Tabs
+
+* Replacing Component: `react-native-scrollable-tab-view <ScrollableTabView>`
+
+
+
+
+
+
+## Thumbnail
+* Replacing Component: React Native `Image`
+
+
+
+
+
+## Typography
+* Replacing Component for H1, H2, H3, Text: React Native `Text`
+
+
+
+
+
+## Drawer  (Component) 
+
+
+
+
+
+## Ref to Components
+
+* ref属性可以在任何NativeBase组件上使用
+* 例如下面这段代码：
+  * `this._button`是NativeBase组件的引用
+  * `this._button._root`是NativeBase组件替换后的React-Native组件的引用，即`TouchableOpacity`
+
+```
+import React, { Component } from 'react';
+import { Container, Header, Content, Button } from 'native-base';
+export default class RefExample extends Component {
+  render() {
+    return (
+      <Container>
+        <Header />
+        <Content>
+          <Button ref={ (c) => this._button = c }>
+            Click Me
+          </Button>
+        </Content>
+      </Container>
+    );
+  }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+# Customize (自定义样式)
+
+NativeBase是建立在ReactNative组件之上的。你可以给任何一个NativeBase组件传递一个style属性，这些属性值都会覆盖掉默认样式。
+
+执行下面的步骤可以自定义NativeBase组件：
+1. 安装完NativeBase后在终端中之行`node node_modules/native-base/ejectTheme.js`
+  * 这会在项目根目录创建一个文件夹native-base-theme，里面有两个文件夹：
+    * variables：包含3个预置的主题（这三个主题分别叫做platform（默认主题）、material、commonColor（使用这个似乎更好））的变量
+      * platform主题：默认主题，它为每个平台提供了适用于特定平台的样式
+      * material主题：提供了Google的Meterial风格的样式
+      * commonColor主题：（使用这个似乎更好）为所有平台都提供了统一的样式（但它遵从特定平台的图标、字体、和组件方向）
+    * components：包含所有组件的样式（这些样式的值直接引用在上边varialbes主题变量的值，并且针对特定组件添加了特定的样式属性）
+
+> 所以在效果上来说，修改variables文件夹中的样式，受影响的样式贯穿整个app；而修改components文件夹中的样式，受影响的只是特定的组件。
 
 
 
@@ -278,3 +438,8 @@ Button组件是一个NativeBase自定义的组件。
 1. Run `react-native link react-native-vector-icons`
 2. Then run `react-native start --reset-cache`
 3. Finally run `react-native run-ios` to restart the simulator
+
+
+
+
+## 2. 使用了NativeBase的Header组件后还能有ReactNavigation那样的切换效果吗？
