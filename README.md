@@ -9,10 +9,11 @@
 * yarn: 1.3.2
 * react@16.0.0
 * javac 1.8.0_152
-* https://services.gradle.org/distributions/gradle-2.14.1-all.zip
+* [graleLink](https://services.gradle.org/distributions/gradle-2.14.1-all.zip)
 
 ## 依赖项
-```
+
+```js
 Saved 95 new dependencies.
 ├─ abab@1.0.4
 ├─ acorn-globals@3.1.0
@@ -112,8 +113,9 @@ Saved 95 new dependencies.
 ```
 
 ## 使用的组件／组件库
+
 * 组建库：NativeBase
-* 
+
 
 
 
@@ -138,14 +140,19 @@ Saved 95 new dependencies.
 ## 组件
 
 ### Anatomy
+
 ReactBase提供了一个自己的结构组件，叫做Container
 
-Anatomy，结构，包括<Header>,<Content>,<Footer>，他们在使用的时候需要被<Container>组件包裹，这样NativeBase就可以自动安排结构组件的位置了。
+Anatomy，结构，包括`<Header>`,`<Content>`,`<Footer>`，他们在使用的时候需要被<Container>组件包裹，这样NativeBase就可以自动安排结构组件的位置了。
 
 #### Footer  (Component)
+
 * Replacing Component: React Native `View`.
+
 #### Content  (Component)
+
 * Replacing Component: React Native Keyboard Aware Scroll View's `KeyboardAwareScrollView`
+
 
 > 页面布局使用Header、Content、Footer；Header中的左中右布局使用Left、Body、Right
 
@@ -156,7 +163,7 @@ Anatomy，结构，包括<Header>,<Content>,<Footer>，他们在使用的时候�
 * NativeBase ActionSheet is a wrapper around the React Native `ActionSheetIOS` component.
 * 使用ActionSheet的时候需要把整个app最顶端的组件使用NativeBase的<Root>组件包裹起来。比如：
 
-```
+```js
 import { Root } from "native-base";
 import { StackNavigator } from "react-navigation";
 const AppNavigator = StackNavigator(
@@ -171,7 +178,8 @@ export default () =>
 ```
 
 * ActionSheet的使用举例：
-```
+
+```js
 ActionSheet.show(
     {
     options: BUTTONS,
@@ -251,6 +259,7 @@ Button组件是一个NativeBase自定义的组件。
 
 
 ## Form (Componnet)
+
 * Replacing Component:`
   * Form: React Native `View`
   * Item: React Native `TouchableOpacity`
@@ -279,6 +288,7 @@ Button组件是一个NativeBase自定义的组件。
 
 
 ## Layout  --  Grid,Col,Row  (Componnet)
+
 * <Grid>,<Col>,<Row>是为了更简单地使用Flexbox而创建的组件，其是对Flexbox的封装
 * Replacing Component for Grid, Col, Row: React Native `View`
 
@@ -289,6 +299,7 @@ Button组件是一个NativeBase自定义的组件。
 
 
 ## List
+
 * 这个组件由NativeBase自定义。
 * Replacing Component:
   * List: React Native `View`
@@ -305,6 +316,7 @@ Button组件是一个NativeBase自定义的组件。
 
 
 ## Picker
+
 * 用来实现类似下拉列表的选择功能，注意，iOS和Android下的选择方式不一样。
 * Replacing Component: React Native `Picker`
 
@@ -321,7 +333,8 @@ Button组件是一个NativeBase自定义的组件。
 
 
 ## Search Bar
- * Replacing Component: React Native `View`
+
+* Replacing Component: React Native `View`
 
 > 如果SearchBar用在了Header中，需要给Header增加`searchBar`属性
 
@@ -356,6 +369,7 @@ Button组件是一个NativeBase自定义的组件。
 
 
 ## Thumbnail
+
 * Replacing Component: React Native `Image`
 
 
@@ -363,6 +377,7 @@ Button组件是一个NativeBase自定义的组件。
 
 
 ## Typography
+
 * Replacing Component for H1, H2, H3, Text: React Native `Text`
 
 
@@ -382,7 +397,7 @@ Button组件是一个NativeBase自定义的组件。
   * `this._button`是NativeBase组件的引用
   * `this._button._root`是NativeBase组件替换后的React-Native组件的引用，即`TouchableOpacity`
 
-```
+```js
 import React, { Component } from 'react';
 import { Container, Header, Content, Button } from 'native-base';
 export default class RefExample extends Component {
@@ -411,20 +426,259 @@ export default class RefExample extends Component {
 
 
 
-# Customize (自定义样式)
+## Customize
+
+## 调整NativeBase整体APP的主题
 
 NativeBase是建立在ReactNative组件之上的。你可以给任何一个NativeBase组件传递一个style属性，这些属性值都会覆盖掉默认样式。
 
 执行下面的步骤可以自定义NativeBase组件：
+
 1. 安装完NativeBase后在终端中之行`node node_modules/native-base/ejectTheme.js`
-  * 这会在项目根目录创建一个文件夹native-base-theme，里面有两个文件夹：
-    * variables：包含3个预置的主题（这三个主题分别叫做platform（默认主题）、material、commonColor（使用这个似乎更好））的变量
-      * platform主题：默认主题，它为每个平台提供了适用于特定平台的样式
-      * material主题：提供了Google的Meterial风格的样式
-      * commonColor主题：（使用这个似乎更好）为所有平台都提供了统一的样式（但它遵从特定平台的图标、字体、和组件方向）
-    * components：包含所有组件的样式（这些样式的值直接引用在上边varialbes主题变量的值，并且针对特定组件添加了特定的样式属性）
+* 这会在项目根目录创建一个文件夹native-base-theme，里面有两个文件夹：
+  * `variables`：包含3个预置的主题（这三个主题分别叫做platform（默认主题）、material、commonColor（使用这个似乎更好））的变量
+    * platform主题：默认主题，它为每个平台提供了适用于特定平台的样式
+    * material主题：提供了Google的Meterial风格的样式
+    * commonColor主题：（使用这个似乎更好）为所有平台都提供了统一的样式（但它遵从特定平台的图标、字体、和组件方向）
+  * `components`：包含所有组件的样式（这些样式的值直接引用在上边varialbes主题变量的值，并且针对特定组件添加了特定的样式属性）
 
 > 所以在效果上来说，修改variables文件夹中的样式，受影响的样式贯穿整个app；而修改components文件夹中的样式，受影响的只是特定的组件。
+
+例如，使用commonColor主题：
+
+```js
+import React, { Component } from 'react';
+import { Container, Content, Text, StyleProvider } from 'native-base';
+import getTheme from './native-base-theme/components';
+import commonColor from './native-base-theme/variables/commonColor';
+​export default class ThemeExample extends Component {
+  render() {
+    return (
+      <StyleProvider style={getTheme(commonColor)}>
+        <Container>
+          <Content>
+            <Text>
+              I have changed the text color.
+            </Text>
+          </Content>
+        </Container>
+      </StyleProvider>
+    );
+  }
+}
+```
+
+说明：
+
+* 使用`<StyleProvider>`组件可以为其子组件指定特定的主题，它可以包裹任何NativeBase组件
+
+
+
+
+## 调整自定义组件的主题
+
+
+
+
+
+
+## Examples
+
+列举了一些技术的Demo：
+
+* Redux Example Counter
+* Mobx Example Counter
+* Navigation - React Navigation
+* Navigation - RNRF
+* Full App Example
+* Redux Form Example
+* Sticky Headers Example
+* FlatList + Sticky Headers
+
+
+
+
+
+
+
+
+
+
+# React-Navigation官网笔记
+
+## Getting Started
+
+### Hello Mobile Navigation 
+
+跳转路由的时候进行传参：
+
+```js
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Welcome',
+  };
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+    <View>
+      <Text>Hello, Navigation!ABC</Text>
+      <Button
+        onPress={() => navigate('Chat', { user: 'Lucy2' })}
+        title="Chat with Lucy"
+      />
+    </View>
+    );
+  }
+}
+
+class ChatScreen extends React.Component {
+  //这里声明了static的navigationOptions，说明这个函数作为组件的外部可访问属性
+  static navigationOptions = ({navigation})=>{  //这里的{navigation}应该是用了结构的写法
+    title: `Chat with ${navigation.state.params.user}`  //这里时es6模板的写法
+  };
+  render() {
+    // The screen's current route is passed in to `props.navigation.state`:
+    const { params } = this.props.navigation.state;
+    return (
+      <View>
+        <Text>Chat with {params.user}</Text>
+      </View>
+    );
+  }
+}
+
+export default App = StackNavigator({
+  Home: { screen: HomeScreen },
+  Chat: { screen: ChatScreen },
+});
+```
+
+### Configuring Headers
+
+* React-Navigation的三种导航中只有`StackNavigator`中Header可用
+* React-Navigation中把用于3中导航中的组件叫做`screen component`
+
+
+
+
+
+
+
+
+
+
+## Navigators
+
+### Intro to Navigators
+
+* Navigators允许你定义应用的导航结构。
+* Navigators也渲染一般的元素，例如headers、tab bars。
+* 在表象之下，Navigators是完完全全的一个React组件。
+
+
+
+#### Built-in Navigators
+
+React-Navigation内置了3个`函数`来帮助你创建导航器：`StackNavigator`、`TabNavigator`、`DrawerNavigator`。
+
+
+
+
+#### Rendering screens with Navigators
+
+* `navigation`：是当前组件的一个prop，即`this.props.navigation`，用来分发导航事件，例如打开另一个screen
+* `navigationOptions`：是当前组件的一个`static`修饰的公共对象，用来自定义screen如何展示，例如header title, tab labe
+
+
+
+
+#### Calling Navigate on Top Level Component ？？？？？？？？？？
+
+
+
+
+#### Navigation Containers
+
+内置的Navigators可以自动表现得像顶级Navigators一样，当`navigation`prop丢失的时候。这个功能提供了一个透明的Navigation容器，which is where the top-level navigation prop comes from。
+
+当渲染一个内置的Navigator的时候，`navigation`prop是可选的。如果没有`navigation`，这个容器就来管理它自己的导航状态。它也处理URLs、external linking（外部链接），并且集成Android的后退按钮。
+
+为了方便起见，内置的Navigators拥有这样的能力，因为内部实现的时候使用的是`createNavigationContainer`。
+
+顶级navigators 接受如下props：
+
+* `onNavigationStateChange(prevState, newState, action)`：这个函数在每次navigator changes的时候都会被调用。它接收上一个state，新state，和发出state改变的action。默认情况下，它在控制台中打印状态改变。
+* `uriPrifix`：app要处理的URLs的前缀。当处理router 中传过来的`deep linking`来抽取路径的时候使用。
+
+
+
+
+
+
+
+
+
+
+### Stack Navigator
+
+在默认的配置情况下StackNavigator切换场景的动画效果与ios或android的默认效果是相同的. ios从右边滑入，android从底部褪去。在ios上StackNavigator也可以配制成模态的形式从页面底部滑入。
+
+StackNavigator是一个函数，定义如下：`StackNavigator(RouteConfigs, StackNavigatorConfig)`。
+
+//`RouteConfigs`的一个例子：
+
+```js
+
+StackNavigator({
+
+  // For each screen that you can navigate to, create a new entry like this:
+  Profile: {
+
+    // `ProfileScreen` is a React component that will be the main content of the screen.
+    screen: ProfileScreen,
+    // When `ProfileScreen` is loaded by the StackNavigator, it will be given a `navigation` prop.
+
+    // Optional: When deep linking or using react-navigation in a web app, this path is used:
+    path: 'people/:name',
+    // The action and route params are extracted from the path.
+
+    // Optional: Override the `navigationOptions` for the screen
+    navigationOptions: ({navigation}) => ({
+      title: `${navigation.state.params.name}'s Profile'`,
+    }),
+  },
+
+  ...MyOtherRoutes,
+});
+
+```
+
+`StackNavigatorConfig`(可选参数)。具体参数查看官网文档
+
+StackNavigator的例子可以参照`NavigationPlayground`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -435,11 +689,21 @@ NativeBase是建立在ReactNative组件之上的。你可以给任何一个Nativ
 # 开发实战
 
 ## 1. 安装完NativeBase后执行`react-native run-ios`，提示`Unrecognized font family ionicons`
+
+解决办法：
+
+```bash
 1. Run `react-native link react-native-vector-icons`
 2. Then run `react-native start --reset-cache`
 3. Finally run `react-native run-ios` to restart the simulator
+```
 
 
 
 
 ## 2. 使用了NativeBase的Header组件后还能有ReactNavigation那样的切换效果吗？
+
+
+
+
+## 3. rn中render函数的return是需要有`()`扩起来的，否则会提示`Nothing was returned from render`
