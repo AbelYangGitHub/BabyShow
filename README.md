@@ -506,6 +506,10 @@ import commonColor from './native-base-theme/variables/commonColor';
 
 # React-Navigation官网笔记
 
+React-Navigation的GitHub地址（包括NavigationPlayground、ReduxExample、SafeAreaExample等项目源码）：https://github.com/react-community/react-navigation
+
+> Mine:React-Navigation文档中把用作导航的组件叫做`screen component`，这个组件也都被命名为`某某Screen`
+
 ## Getting Started
 
 ### Hello Mobile Navigation 
@@ -625,7 +629,8 @@ React-Navigation内置了3个`函数`来帮助你创建导航器：`StackNavigat
 
 StackNavigator是一个函数，定义如下：`StackNavigator(RouteConfigs, StackNavigatorConfig)`。
 
-//`RouteConfigs`的一个例子：
+
+* 参数1：`RouteConfigs`，用于配置路由名及其所对应的`Screen Component`的相关信息。eg：
 
 ```js
 
@@ -653,9 +658,267 @@ StackNavigator({
 
 ```
 
-`StackNavigatorConfig`(可选参数)。具体参数查看官网文档
+
+
+* 参数2:`StackNavigatorConfig`(可选参数)。具体参数查看官网文档
+
+配置与`与当前Screen组件内容无关的`与StackNavigator本身相关的`整体显示方式`、`头部显示方式`、`转场相关设置`等信息。
 
 StackNavigator的例子可以参照`NavigationPlayground`
+
+
+
+* Screen Navigation Options
+
+其实就是Screen `navigationOptions`，`navigationOptions`作为一个用作Screen的组件的内部对象，在用作StackNavigator的时候指定了`与当前Screen组件内容有关系的`StackNavigator页面的头部和手势等相关配置。
+
+具体属性参见文档。
+
+
+
+* Navigator Props
+
+`StackNavigator`函数返回的是一个导航组件对象，这个对象可以直接用作标签，其属性`screenProps`会被传递到相关screen components，在这写screen components中可以通过`this.props.screenProps`访问到传递过来的`screenProps`
+
+```js
+const SomeStack = StackNavigator({
+  // config
+});
+
+<SomeStack
+  screenProps={/* this prop will get passed to the screen components as this.props.screenProps */}
+/>
+```
+
+
+
+
+
+
+
+
+
+
+### TabNavigator
+
+TabNavigator是一个函数，定义如下：`TabNavigator(RouteConfigs, TabNavigatorConfig)`
+
+* 参数1：RouteConfigs。
+
+与StackNavigator的RouteConfigs参数作用一致，并且这个对象的属性也一致。
+
+
+* 参数2: TabNavigatorConfig
+
+配置与`与当前Screen组件内容无关的`与TabNavigator本身相关的`tab的位置`、`是否可侧滑`、`转场相关设置`等信息，并可通过`tabBarOptions`重写一些路由相关的配置。
+
+其中，`TabNavigator`可以配置TabNavigator使用哪种类型的tab组件，包括在顶部样式的`TabBarTop`和在底部样式的`TabBarBottom`，这两个组件不仅位置不一样，样式也不一样，是这个意思吗？？？？？？？？？？
+
+
+* Screen Navigation Options
+
+其实就是Screen `navigationOptions`，`navigationOptions`作为一个用作Screen的组件的内部对象，在用作TabNavigator的时候指定了`与当前Screen组件内容有关系的`TabNavigator的名称、图标、点击事件等。
+
+
+* Navigator Props
+
+与StackNavigator的Navigator Props一致。
+
+
+
+
+
+
+
+
+
+
+### DrawerNavigator
+
+打开和关闭Drawer：
+
+```js
+this.props.navigation.navigate('DrawerOpen'); // open drawer
+this.props.navigation.navigate('DrawerClose'); // close drawer
+```
+
+Toggle Drawer：
+
+```js
+this.props.navigation.navigate('DrawerToggle');
+```
+
+
+DrawerNavigator是一个函数，定义如下：`DrawerNavigator(RouteConfigs, DrawerNavigatorConfig)`
+
+* 参数1：RouteConfigs。
+
+与StackNavigator的RouteConfigs参数作用一致，并且这个对象的属性也一致。
+
+
+* 参数2: DrawerNavigatorConfig
+
+配置与`与当前Screen组件内容无关的`与DrawerNavigator本身相关的`drawer的宽度`、`drawer的位置`、`路由的paths`等信息，并可通过`contentComponent`进行一些其他的配置。
+
+
+
+* Providing a custom contentComponent
+
+Drawer中默认的组件是可滚动的，而且仅仅包含RouteConfig中配置的路由的链接，你可以很容易地重写默认组件来Header、Footer或其他组件到Drawer中。默认情况下Drawer是可滚动的并且支持iPhone X的safe area的。如果你自定义里面的内容，要确保内容被包裹在`SafeAreaView`组件中。
+
+```js
+import { DrawerItems, SafeAreaView } from 'react-navigation';
+
+const CustomDrawerContentComponent = (props) => (
+  <ScrollView>
+    <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
+      <DrawerItems {...props} />
+    </SafeAreaView>
+  </ScrollView>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+```
+
+
+* `contentOptions` for DrawerItems
+
+`contentOptions`即上边`DrawerNavigatorConfig`参数对象的一个属性。它可以配置Drawer的Item的样式。eg：
+
+```js
+contentOptions: {
+  activeTintColor: '#e91e63',
+  itemsContainerStyle: {
+    marginVertical: 0,
+  },
+  iconContainerStyle: {
+    opacity: 1
+  }
+}
+```
+
+
+
+* Screen Navigation Options
+
+其实就是Screen `navigationOptions`，`navigationOptions`作为一个用作Screen的组件的内部对象，在用作DrawerNavigator的时候指定了`与当前Screen组件内容有关系的`什么？？？？？？？？？？
+
+
+* Navigator Props
+
+与StackNavigator的Navigator Props一致。
+
+
+
+
+
+
+
+
+
+
+### The Navigation Prop
+
+
+app中的每一个screen都会接收一个prop叫作navigation，这个对象包含如下属性：
+
+* `navigate`：一个函数，打开另一个screen
+
+eg：`this.props.navigation.navigate('Profile', {name: 'Brent'})`
+
+* `state`：一个对象，当前screen的state/routes
+
+```js
+//state对象：
+{
+  // the name of the route config in the router
+  routeName: 'profile',
+  //a unique identifier used to sort routes
+  key: 'main0',
+  //an optional object of string options for this screen
+  params: { hello: 'world' }
+}
+```
+
+```js
+class ProfileScreen extends React.Component {
+  render() {
+    const {state} = this.props.navigation;
+    // state.routeName === 'Profile'
+    return (
+      <Text>Name: {state.params.name}</Text>
+    );
+  }
+}
+
+```
+
+* `setParams`：一个函数，接收一个json，更新更新路由的params
+
+setParams函数允许改变route中的参数，这在更新头部的标题和按钮的时候很有用。
+
+```js
+class ProfileScreen extends React.Component {
+  render() {
+    const {setParams} = this.props.navigation;
+    return (
+      <Button
+        onPress={() => setParams({name: 'Lucy'})}
+        title="Set title name to 'Lucy'"
+      />
+     )
+   }
+}
+```
+
+
+* `goBack`：一个函数，关闭当前screen，并后退
+
+有3各种情况：
+
+* this.props.navigation.goBack();
+* this.props.navigation.goBack(null);
+* this.props.navigation.goBack('screen-123');
+
+
+* `dispatch`：一个函数，向路由发送action？？？？？？？？？？
+
+> 其他的Navigation函数在内部都使用了dispatch函数。
+
+使用dispatch函数可以发送任何Navigation Action到路由中。？？？？？？？？？？参见下边的Navigation Actions
+
+
+
+
+*NOTE:* The `navigation` prop is passed down to every navigation-aware component including navigators. The big exception is that a navigator's `navigation` prop may not have the helper functions (`navigate`, `goBack`, etc); it may only have `state` and `dispatch`. In order to `navigate` using the navigator's `navigation` prop, you will have to `dispatch` using an [action creator](navigation-actions).
+
+*Notes regarding hooking things up with Redux*
+
+> People don't always hook things up to redux correctly, because they mis-understand the navigator's top-level API, where the navigation prop is optional. The navigator will maintain its own state if it doesn't get a navigation prop, but this is not a feature you generally want to use when hooking your app up with redux. For navigators that are nested inside of your main navigator, you always want to pass the screen's navigation prop down. This allows your top-level navigator to communicate and provide state for all the children navigators. Only your top-level router needs to be integrated with redux, because all the other routers are inside it.
+
+
+
+
+
+
+
+
+
+
+### Navigation Actions
+
+react-navigation中有一个`NavigationActions`（注意：是`复数`）对象，这个对象包含如下一些函数，这些函数都返回`navigationAction`（注意：是`单数`）对象，它可以通过`this.props.navigation.dispatch`函数发送到路由中。（`发送到路由中`是干什么的？有什么用？？？？？？？？？？难道是不通过StackNavigator等方式而直接配置路由？？？？？？？？？？）
+
+* `Navigate` - Navigate to another route
+* `Reset` - Replace current state with a new state
+* `Back` - Go back to previous state
+* `SetParams` - Set Params for given route
+* `Init` - Used to initialize first state if state is undefined
+
 
 
 
@@ -702,6 +965,12 @@ StackNavigator的例子可以参照`NavigationPlayground`
 
 
 ## 2. 使用了NativeBase的Header组件后还能有ReactNavigation那样的切换效果吗？
+
+
+
+
+
+## 3. 使用了React Navigation，在android下可以显示成iOS中那样的效果吗？
 
 
 
